@@ -9,7 +9,7 @@ use Validator;
 
 class AuthAdminController extends Controller
 {
-    
+
   /**
      * Create a new AuthAdminController instance.
      *
@@ -38,7 +38,7 @@ class AuthAdminController extends Controller
         }
 
         return $this->createNewToken($token);
-       
+
     }
 
     /**
@@ -71,7 +71,7 @@ class AuthAdminController extends Controller
 
     /**
      * Log the user out (Invalidate the token).
-     *jj
+     *nouveau commentaires
      * @return \Illuminate\Http\JsonResponse
      */
     public function Adminlogout() {
