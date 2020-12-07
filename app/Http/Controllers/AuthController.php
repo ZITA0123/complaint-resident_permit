@@ -77,7 +77,7 @@ class AuthController extends Controller
      */
     public function logout() {
         auth()->logout();
-
+        /*test github*/
         return response()->json(['message' => 'User successfully signed out']);
     }
 
