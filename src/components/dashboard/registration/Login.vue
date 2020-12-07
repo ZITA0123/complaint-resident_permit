@@ -6,7 +6,7 @@
             <div class="log">
                 <h1 class="title">Login</h1>
                 <p class="sub-title">Hello! Log in with your email.</p>
-                <b-form @submit.prevent="login">
+                <b-form @submit.prevent="login" novalidate="true">
                     <b-form-group
                     id="group1"
                     label-for="input1"
@@ -45,6 +45,7 @@
                 errors: [],
                 email: null,
                 password: null
+                /*hello*/
             }
         },
         methods: {
