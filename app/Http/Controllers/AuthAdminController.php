@@ -71,7 +71,7 @@ class AuthAdminController extends Controller
 
     /**
      * Log the user out (Invalidate the token).
-     *
+     *jj
      * @return \Illuminate\Http\JsonResponse
      */
     public function Adminlogout() {
