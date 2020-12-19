@@ -9,7 +9,7 @@ use Validator;
 
 class AuthAdminController extends Controller
 {
-    
+
   /**
      * Create a new AuthAdminController instance.
      *
@@ -38,7 +38,7 @@ class AuthAdminController extends Controller
         }
 
         return $this->createNewToken($token);
-       
+
     }
 
     /**
@@ -48,7 +48,7 @@ class AuthAdminController extends Controller
      */
     public function Adminregister(Request $Adminrequest) {
         $validator = Validator::make($Adminrequest->all(), [
-            'Name' => 'required|string|between:2,100',
+            'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|confirmed|min:6',
         ]);
@@ -60,6 +60,7 @@ class AuthAdminController extends Controller
         $admin = Admin::create(array_merge(
                     $validator->validated(),
                     ['password' => bcrypt($Adminrequest->password)]
+
                 ));
 
         return response()->json([
