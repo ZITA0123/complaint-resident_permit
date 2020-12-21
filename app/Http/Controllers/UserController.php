@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Repositories\Interfaces\UserInterface;
 use App\Repositories\Eloquent\EloquentUser;
+use App\Repositories\Interfaces\UserInterface;
 
 class UserController extends Controller
 {

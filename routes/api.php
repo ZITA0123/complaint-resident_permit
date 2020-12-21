@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthAdminController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,4 +64,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('users', [UserController::class,'save']);
 Route::get('users',[UserController::class,'index']);
 Route::put('user',[UserController::class,'update']);
+Route::get('users/{id}',[UserController::class,'getUser']);
 Route::delete('users/{id}', [UserController::class,'delete']);
