@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthAdminController;
+use App\Http\Controllers\RdvController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -61,8 +62,24 @@ Route::group([
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 Route::post('users', [UserController::class,'save']);
 Route::get('users',[UserController::class,'index']);
+//Route::put('user/{id}',[UserController::class,'update']);
 Route::put('user',[UserController::class,'update']);
 Route::get('users/{id}',[UserController::class,'getUser']);
+Route::get('users-rdv/{id}',[UserController::class,'getRdv']);
 Route::delete('users/{id}', [UserController::class,'delete']);
+
+
+Route::middleware('auth:api')->get('/rdv', function (Request $request) {
+    return $request->user();
+});
+Route::post('rdvs', [RdvController::class,'save']);
+Route::get('rdvs',[RdvController::class,'index']);
+Route::get('rdvs/dates',[RdvController::class,'getAllDates']);//all dates
+Route::get('rdvs/times/{date}',[RdvController::class,'getAllTimes']);//all times
+Route::put('rdv',[RdvController::class,'update']);
+Route::get('rdvs/{id}',[RdvController::class,'getRdv']);
+Route::get('rdvs/user/{id}',[RdvController::class,'getByUserId']);//rdv_user
+Route::delete('rdvs/{id}', [RdvController::class,'delete']);

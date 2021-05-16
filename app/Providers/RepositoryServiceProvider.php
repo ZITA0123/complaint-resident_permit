@@ -26,8 +26,8 @@ class RepositoryServiceProvider extends ServiceProvider
     public $singletons=[
        UserInterface::class => EloquentUser::class,
        RdvInterface::class=> EloquentRdv::class,
-
     ];
+
 
     /**
      * Bootstrap services.

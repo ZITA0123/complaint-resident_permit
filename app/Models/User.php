@@ -14,13 +14,22 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
+    //public $timestamps = false;
     //one to one relationship with the Rdv entity
     public function rdv()
     {
         return $this->hasOne(Rdv::class);
        // return $this->hasOne(Phone::class);
     }
-
+     /**
+     * Gets the number of rdv that a user has
+     * @return mixed
+     */
+    public function getRdvCount()
+    {
+       // return $this->rdv()->where('approved', 1)->count();
+        return $this->rdv()->count();
+    }
     //A User can post many complaints
     public function plaintes()
     {
@@ -40,6 +49,7 @@ class User extends Authenticatable implements JWTSubject
         'lastName',
         'email',
         'password',
+        'permission',
     ];
 
     /**

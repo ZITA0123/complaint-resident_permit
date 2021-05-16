@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Rdv extends Model
 {
     use HasFactory;
-    public $timestamps = false;
+    //public $timestamps = false;
     /**
      * Get the user that owns the rdv.
      */
@@ -18,6 +18,7 @@ class Rdv extends Model
     }
 
     protected $fillable = [
+        'user_id',
         'date',
         'time',
 

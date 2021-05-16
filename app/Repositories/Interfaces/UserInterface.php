@@ -8,6 +8,7 @@
         public function all();
         public function getById(int $id);
         public function update(User $user);
+       //public function update(int $id);
         public function delete(int $id);
 
 

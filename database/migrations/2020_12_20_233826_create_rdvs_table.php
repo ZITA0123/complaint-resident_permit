@@ -15,9 +15,12 @@ class CreateRdvsTable extends Migration
     {
         Schema::create('rdvs', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->index();
             $table->string('date');
             $table->string('time');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete("cascade");
+
         });
     }
 
