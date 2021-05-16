@@ -1,59 +1,60 @@
 <template>
+  
+       
+        <section class="login-form">
+            
+            <div class="log">
+                <h1 class="title">Admin Login</h1>
+                <p class="sub-title">Hello! Log in with your email.</p>
 
-
-    <section class="login-form">
-
-        <div class="log">
-            <h1 class="title">Login</h1>
-            <p class="sub-title">Hello! Log in with your email.</p>
-
-           <ValidationObserver v-slot="{ invalid }">
-                <b-form @submit.prevent="login">
+                <b-form @submit.prevent="login" >
                     <div v-if="errors[0]=='error' " style="color:#ed3f4e; font-weight: bold;text-align:center;">
                         <p> Your email or your password is wrong!</p>
                     </div>
-                   <ValidationProvider name="E-mail" rules="required|email" v-slot="{ errors }">
-                        <b-form-group id="group1" label-for="input1" label="Email">
-                            <b-form-input type="email" placeholder="enter your email" required v-model="email" id="input1">
-                            </b-form-input>
-                        </b-form-group>
-                         <span class="validate">{{ errors[0] }}</span>
-                   </ValidationProvider>
-                    <ValidationProvider name="Password" rules="required|min:6" v-slot="{ errors }" >
-                        <b-form-group id="group2" label-for="input2" label="Password" description="">
-                            <b-form-input type="password" placeholder="enter password" required v-model="password" id="input2">
-                            </b-form-input>
-                        </b-form-group>
-                         <span class="validate">{{ errors[0] }}</span>
-                    </ValidationProvider >
-                    <b-button type="submit" :disabled="invalid">Log In</b-button>
+                    <b-form-group
+                    id="group1"
+                    label-for="input1"
+                    label="Email"
+                   :description="description">
+                        <b-form-input
+                        type="email" placeholder="enter your email" required v-model="email" id="input1"></b-form-input>
+                    </b-form-group>
+                     <b-form-group
+                    id="group2"
+                    label-for="input2"
+                    label="Password"
+                    description="">
+                        <b-form-input
+                        type="password" placeholder="enter password" required v-model="password" id="input2"></b-form-input>
+                    </b-form-group>
+                    <b-button type="submit" v-on:click="getuser()"  >Log In</b-button>
                 </b-form>
-               
-               
-           </ValidationObserver>
-
-        </div>
-         <p>No account: 
-                    <router-link to="/register">Register</router-link>
-                </p>
         
-    </section>
+            </div>
 
-
+        
+        </section>
+     
+ 
 </template>
 
 <script>
-    //import {bus} from '../../../main';
-
+// import axios from 'axios'
+ //axios.defaults.baseURL = 'http://127.0.0.1:8000/api/auth'
     export default {
-        components: {},
+        components: {
+        
+        },
         data() {
             return {
                 errors: [],
                 email: null,
                 password: null,
+               
+                
             }
         },
+       
 
         methods: {
             checkForm: function (e) {
@@ -76,33 +77,21 @@
                 e.preventDefault();
             },
 
-            login: function () {
-
-                let email = this.email
-                let password = this.password
-
-                this.$store.dispatch('login', {
-                        email,
-                        password
-                    })
-                    .then((res) => {
-
-                        this.userData = res.data.user
-                            let user=res.data.user.id
-                            localStorage.setItem('user',user)
-                            localStorage.setItem('token',res.data.access_token)
-                            localStorage.setItem('permission',res.data.user.permission)
-                           // console.log(user)
-                            //console.log(res.data)
-                        
-                        this.$router.push('/')
-
-                    })
-                    .catch(err => {
-                        console.log(err),
-                            this.errors.push("error")
-                    })
+            login:function(){    
+             
+            let email = this.email
+            let password = this.password
+            this.$store.dispatch('loginAdmin', { email, password })
+            .then(() =>{ 
+                this.$router.push('/admin')})
+            .catch(err => {console.log(err),
+                this.errors.push("error")
+            }
+        )
+        
             },
+          
+
 
 
             validEmail: function (email) {
@@ -139,7 +128,7 @@
         box-shadow: 0 0 40px rgba(0, 0, 0, .13);
     }
 
-
+ 
     .title {
         font-size: 36px;
         font-weight: 500;
@@ -173,23 +162,19 @@
         padding: 15px;
         border: 1px solid #ddddde;
         box-sizing: border-box;
-        /* background-color: #D7D3D2;*/
+       /* background-color: #D7D3D2;*/
     }
 
     .login-form button[type="submit"] {
         margin-top: 20px;
         width: 100%;
         padding: 15px;
-        /* background-color: #ff7300;*/
-        background-color: #ed3f4e;
+       /* background-color: #ff7300;*/
+        background-color:#ed3f4e;
         border: 0;
         box-sizing: border-box;
         cursor: pointer;
         font-weight: bold;
         color: #ffffff;
     }
-     span .validate {
-  display: block;
-  color:#ed3f4e;
-  }
 </style>

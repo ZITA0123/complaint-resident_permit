@@ -12,30 +12,6 @@
     </div>
 <p>window.location.pathname;
                 window.location.href</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             <div class="container">
                 <div class="parent-blck">
                     <div class="auth">

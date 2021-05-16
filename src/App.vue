@@ -5,7 +5,19 @@
     
  
 </template>
+<script>
+export default {
+  data(){
+    return{
+       userData:Object
+    }
+   
+  }
+  
+}
+</script>
 
 <style>
+
 
 </style>

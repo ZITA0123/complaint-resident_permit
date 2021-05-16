@@ -9,46 +9,102 @@
                 <div class="parent-blck">
                     <div class="auth">
                         <h1 class="custom-title">Créer un compte</h1>
-                        <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-                            <b-form-group id="input-group-1" label="First Name:" label-for="input-1"
-                                v-if="description='please enter your first name'">
-                                <b-form-input id="input-1" type="text" v-model="form.first_name" required
-                                    placeholder="Enter first name">
-                                </b-form-input>
-                            </b-form-group>
-                            <b-form-group id="input-group-2" label="Last Name:" label-for="input-2">
-                                <b-form-input id="input-2" type="text"
-                                 v-model="form.last_name" required
-                                    placeholder="Enter last name">
-                                </b-form-input>
-                            </b-form-group>
 
-                            <b-form-group id="input-group-3" label="Email address:" label-for="input-3">
-                                <b-form-input id="input-3" v-model="form.email" type="email" required
-                                    placeholder="Enter email">
-                                </b-form-input>
-                            </b-form-group>
+                        <ValidationObserver v-slot="{ invalid }">
 
-                            <b-form-group id="input-group-4" label="Password:" label-for="input-4"
-                                description="We'll never share your password.">
-                                <b-form-input id="input-5" v-model="form.password" type="password" required
-                                    placeholder="enter password"></b-form-input>
+                            <b-form @submit.prevent="register" @reset="onReset" v-if="show">
 
-                            </b-form-group>
+
+                                <ValidationProvider name="First Name" rules="required|alpha" v-slot="{ errors }">
+                                    <b-form-group id="input-group-1" label="First Name:" label-for="input-1"
+                                        v-if="description='please enter your first name'">
+                                        <b-form-input id="input-1" type="text" v-model="firstName" required
+                                            placeholder="Enter first name">
+                                        </b-form-input>
+                                    </b-form-group>
+                                    <span class="validate">{{ errors[0] }}</span>
+                                </ValidationProvider>
+
+                                <ValidationProvider name="Last Name" rules="required|alpha" v-slot="{ errors }">
+                                    <b-form-group id="input-group-2" label="Last Name:" label-for="input-2">
+                                        <b-form-input id="input-2" type="text" v-model="lastName" required
+                                            placeholder="Enter last name">
+                                        </b-form-input>
+                                    </b-form-group>
+                                    <span class="validate">{{ errors[0] }}</span>
+                                </ValidationProvider>
+                                <ValidationProvider name="E-mail" rules="required|email" v-slot="{ errors }">
+                                    <b-form-group id="input-group-3" label="Email address:" label-for="email">
+                                        <b-form-input id="email" v-model="email" type="email" required
+                                            placeholder="Enter email">
+                                        </b-form-input>
+                                    </b-form-group>
+                                    <span class="validate">{{ errors[0] }}</span>
+                                </ValidationProvider>
+
+
+                                <ValidationProvider name="Password" rules="required|min:6" v-slot="{ errors }">
+                                    <b-form-group id="input-group-4" label="Password:" label-for="input-4"
+                                        >
+                                        <b-form-input id="input-4" v-model="password" type="password" required
+                                            placeholder="enter password" min="6"></b-form-input>
+
+                                    </b-form-group>
+                                    <span class="validate">{{ errors[0] }}</span>
+                                </ValidationProvider>
+
+
+                                <!--
                             <b-form-group id="input-group-5" label="Confirm password:" label-for="input-5"
                                 description="your password confirmation .">
-                                <b-form-input id="input-1" v-model="form.confirm_password" type="password" required
-                                    placeholder="confirm password"></b-form-input>
-                            </b-form-group>
+                                 <b-form-input id="input-5" v-model="confirm_password" type="password" required
+                                    placeholder="confirm password" min="6" ></b-form-input>
 
-                            <b-button type="submit" >Submit</b-button>
-                            <!--<b-button type="reset" variant="danger">Reset</b-button>-->
-                        </b-form>
+                            </b-form-group>
+                            -->
+
+                                <b-button type="submit" :disabled="invalid">Submit</b-button>
+                                <!--<b-button type="reset" variant="danger">Reset</b-button>-->
+                            </b-form>
+
+                        </ValidationObserver>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         <p class="auth-text">Déjà inscrit ? <a class="auth-link" href="/login">Se connecter</a></p>
                     </div>
                     <div class="side-img">
                         <h2 class="side-img-text">
-                          Make the administrative systeme easy <br>
+                            Make the administrative systeme easy <br>
                         </h2>
                     </div>
                 </div>
@@ -64,35 +120,89 @@
 <script>
     import appHeader from '../pages/HeaderContent'
     import appFooter from '../pages/AppFooter'
+    //  import {mapGetters} from 'vuex'
+
+    import axios from 'axios'
+    axios.defaults.baseURL = 'http://127.0.0.1:8000/api/auth'
     export default {
         components: {
             appHeader,
             appFooter
+
         },
         data() {
             return {
-                form: {
-                    email: '',
-                    first_name: '',
-                    last_name: '',
-                    password: '',
-                    confirm_password: ''
-                },
+                email: '',
+                firstName: '',
+                lastName: '',
+                password: null,
+                confirm_password: null,
                 description: false,
                 show: true
             }
         },
         methods: {
-            onSubmit(evt) {
-                evt.preventDefault()
-                alert(JSON.stringify(this.form))
+            register: function () {
+                let data = {
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                    email: this.email,
+                    password: this.password,
+                    // confirm_password:this.confirm_password
+                    // is_admin: this.is_admin
+                }
+                this.$store.dispatch('register', data)
+                    .then(() => this.$router.push('/login'))
+                    .catch(err => console.log(err))
             },
+
+            /*  onSubmit:function(){
+                   let data = {
+                  firstName: this.firstName,
+                  lastName: this.lastName,
+                  email: this.email,
+                  password: this.password,  
+               }
+                  axios.post('/register',data)
+                  .then(
+                      res=>{console.log(res);
+                      }
+                  )
+              },*/
+
+            /* onSubmit: function() {
+                 let data = {
+                 firstName: this.firstName,
+                 lastName: this.lastName,
+                 email: this.email,
+                 password: this.password,  
+              } let data = {
+                 firstName: this.firstName,
+                 lastName: this.lastName,
+                 email: this.email,
+                 password: this.password,  
+              }
+                /* evt.preventDefault()
+                 alert(JSON.stringify(this.form))
+                 console.log("submitted")*/
+            /*
+                 this.$store
+                .dispatch('register',data)
+                .then(() => {
+                this.$router.push({ name: 'login' })
+                })
+                .catch(err => {
+                console.log(err)
+                })
+            },*/
+
+
             onReset(evt) {
                 evt.preventDefault()
                 // Reset our form values
                 this.form.email = ''
-                this.form.first_name = ''
-                this.form.last_name = ''
+                this.form.firstName = ''
+                this.form.lastName = ''
                 this.form.password = ''
                 this.form.confirm_password = ''
                 // Trick to reset/clear native browser form validation state
@@ -152,26 +262,32 @@
         padding-bottom: 85px;
         background-color: #f5f5f5;
     }
+
     .l-authentification .side-img-text {
-    padding-top: 250px;
-    line-height: 62px;
-    text-align: center;
-    font-size: 50px;
-   font-style:oblique;
-   font-weight: 500;
-  position: relative;
-    color: #ed3f4e;
-}
-     .auth button[type="submit"] {
+        padding-top: 250px;
+        line-height: 62px;
+        text-align: center;
+        font-size: 50px;
+        font-style: oblique;
+        font-weight: 500;
+        position: relative;
+        color: #ed3f4e;
+    }
+
+    .auth button[type="submit"] {
         margin-top: 20px;
         width: 100%;
         height: 80%;
         padding: 15px;
-        background-color:#ed3f4e;
+        background-color: #ed3f4e;
         border: 0;
         box-sizing: border-box;
         cursor: pointer;
         font-weight: bold;
         color: #ffffff;
     }
+    span .validate {
+  display: block;
+  color:#ed3f4e;
+}
 </style>

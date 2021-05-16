@@ -23,38 +23,37 @@
                 
                 
                         <div>
-                            <b-form-group id="group1" label="username" label-for="input1">
-                                <b-form-input id="input1" type="text" value="zita" name="username" v-model="username" required>
-                
+                            <b-form-group id="group1" label="FirstName" label-for="input1">
+                                <b-form-input id="input1" type="text"  name="firstName" v-model="firstName" required>               
+                                </b-form-input>
+                            </b-form-group>
+                        </div>
+                         <div>
+                            <b-form-group id="group4" label="LastName" label-for="input4">
+                                <b-form-input id="input4" type="text"  name="lastName" v-model="lastName" required>               
                                 </b-form-input>
                             </b-form-group>
                         </div>
                 
                         <div>
                             <b-form-group id="group2" label="Email" label-for="input2">
-                                <b-form-input id="input2" clearable name="Email" v-model="email" type="email" value="zi@gmail.cm"
+                                <b-form-input id="input2" clearable name="Email" v-model="email" type="email"
                                     required>
                                 </b-form-input>
                             </b-form-group>
                         </div>
                 
                 
-                        <div>
+                       <!-- <div>
                             <b-form-group label="Address" label-for="input3" id="group3">
-                                <b-form-input id="input3" v-model="address" type="text" required value="ariana 1235">
+                                <b-form-input id="input3" v-model="address" type="text" required >
                                 </b-form-input>
                             </b-form-group>
-                        </div>
-                        <div>
+                        </div>-->
+                       <!-- <div>
                             <p>Edit password</p>
                         </div>
-                
-                
-                
-                
-                
-                
-                
+                        -->
                         <b-button @click="onSubmit">Update</b-button>
                 
                     </b-card-body>
@@ -65,13 +64,19 @@
 
 </template>
 <script>
+import Axios from 'axios';
     export default {
         components: {},
         data() {
             return {
-                user: "",
+                users:[],
+                firstName:"",
+                lastName:"",
+                email: "",
+                address:'',
+                id:'',
                 model: {
-                    username: "",
+                    username: "rrr",
                     date: "",
                     city: "",
                     place: "",
@@ -115,46 +120,50 @@
 
             };
         },
+    mounted() {
+      this.getUsers()
+    },
         methods: {
+             getUsers() {
+        let user = localStorage.getItem('user')
+        Axios.get('http://127.0.0.1:8000/api/users/' + user)
+          .then(response => {
+            this.users = response.data
+            this.firstName=this.users.firstName
+            this.lastName=this.users.lastName
+            this.email=this.users.email
+            this.id=this.users.id
+            console.log(this.users)
 
-            /* onSubmit() {
-               this.$validator.validateAll().then(res => {
-                 if (res) {
-                   let postBody = {
-                     user_name: this.model.username,
-                     email: this.model.email,
-                     birthDate: this.model.date,
-                     address: this.model.address,
-                     lang: "eng",
-                     birthPlace: this.model.place,
-                     city: this.model.city,
-                     postcode: this.model.postCode,
-                     custom: this.model.currency,
-                     id: this.$currentUser
-                   };*/
+          })
+          .catch(error => {
+            console.log(error)
+            this.errored = true
+          })
+          
+      },
+             onSubmit() {
+                let data = {
+            firstName: this.firstName,
+            lastName: this.lastName,
+            email: this.email,
+        }
+           Axios.put('http://127.0.0.1:8000/api/user/'+this.id ,data)
+          .then(response => {
+           window.location.reload()
+            console.log(response)
 
-            /*handleSuccess(res, file) {
-              if (res) {
-                this.model.imageUrl = URL.createObjectURL(file.raw);
-              }
-            },*/
-            /*beforeUpload(file) {
-              let isIMG = file.type.match("jpeg|png");
-              const isLt = file.size / 1024 / 1024 < 0.25;
-              if (!isIMG) {
-                this.$message.error("Avatar picture must be JPG or PNG format!");
-              }
-              if (!isLt) {
-                this.$message.error("Avatar picture size can not exceed 250 KB!");
-              }
-              if (isIMG === undefined || isIMG === null) {
-                isIMG = false;
-              }
-              return isIMG && isLt;
-            }*/
+          })
+          .catch(error => {
+
+            console.log(error)
+            this.errored = true
+          })
+         
         },
 
-    };
+    }
+}
 </script>
 <style scoped>
     .picture-container  {

@@ -1,44 +1,59 @@
 <template>
-   
-<div class="tout container">
+
+  <div class="tout ">
     <div class="row">
-          <div class="col-md-6">
-            <b-icon icon="list-ul" v-b-toggle.sidebar-1>Toggle Sidebar</b-icon>
-            <b-sidebar id="sidebar-1" 
-             visible="true" 
-             no-close-on-esc
-              title="Sidebar" shadow>
-              <div class="px-3 py-2">
-                <p>
-                  Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-                  in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-                </p>
-                <b-img src="https://picsum.photos/500/500/?image=54" fluid thumbnail></b-img>
-              </div>
-            </b-sidebar>
+      <div class="col-md-5">
+        <b-icon icon="list-ul" font-scale="2" class="icon" v-b-toggle.sidebar-1>Toggle Sidebar</b-icon>
+        <b-sidebar id="sidebar-1" visible="true" no-close-on-esc title="" shadow>
+
+          <div>
+            <b-nav vertical >
+              <b-nav-item   @click="componentType='profile'" active>Manage users( liste users avec actions)</b-nav-item>
+              <b-nav-item  @click="componentType='profile'">Manage RDVs(liste rdvs avec actions)</b-nav-item>
+              <b-nav-item  @click="componentType='profile'">Manage Agents(liste agents)</b-nav-item>
+              <b-nav-item disabled>Disabled</b-nav-item>
+              
+            </b-nav>
           </div>
-          <div class="hea col-md-6">
-              <appHeader class="siz"></appHeader>
-          </div>
+
+        </b-sidebar>
+      </div>
+      <div>
+        <h1>Admin dashboard</h1>
+          <div v-if="componentType"  >
+                    <keep-alive>
+                        <component :is="componentType"></component>
+                    </keep-alive>
+                </div>
+      </div>
+
     </div>
-</div>
+  </div>
 
 </template>
 <script>
-import appHeader from '../dashboard/pages/ProfileHeader'
-export default {
-    components:{
-        appHeader
+  export default {
+  data () {
+    return {
+       componentType: ""
     }
-    
-}
+  },
+    components: {
+
+    }
+
+  }
 </script>
 <style scoped>
-.tout{
+  .tout {
     display: flex;
     flex-direction: column;
-}
-.siz{
+  }
+
+  .siz {
     width: 100%;
-}
+  }
+  .icon{
+    float: left;
+  }
 </style>

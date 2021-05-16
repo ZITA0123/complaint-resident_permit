@@ -8,7 +8,7 @@
         <h1>lkfdxfgchvjbknlmlmlmlml</h1>
         -->
         <div>
-          <b-carousel controls id="carousel-fade" style="text-shadow: 0px 0px 2px #000" fade interval="5000">
+          <b-carousel controls id="carousel-fade" style="text-shadow: 0px 0px 2px #000" fade interval=5000 >
 
             <b-carousel-slide class="bcaro1 bcaro" contr>
               <h2>STOP SILENCE</h2>
@@ -47,15 +47,53 @@
            </div>
             <div style="min-height:200px;">
               <h3> Online appointment for the resident permit</h3>
-              <p>Lorem ipsum dolor sit amet,
+              <p> 
+                Pour une  demande de carte de sejour il fvous faut prealable  constituer un dossier.
+                    Ci-dessous les informations relatives à la constitution d'un dossier de demande de carte de sejour.
+                    
                 <span v-if="readMore"></span>
                 <span v-else>...</span>
               </p>
               
-              <p v-show="readMore">Ligula ullamcorper malesuada proin
-                libero nunc consequat interdum varius. Turpis egestas pretium aenean pharetra magna ac
-                libero nunc consequat interdum varius. Turpis egestas pretium aenean pharetra magna ac
-              </p>
+              <section v-show="readMore">
+                <div class="row dossier" >
+                   <h3>Elements constitutifs du dossier</h3>
+                    <div >
+                        <b-card  title="En cas d'exercise d'une activité rémunérée:" >
+                              <b-card-text>
+                                 <ul>
+                                   <li> Contrat de travail visé ou une attestation de non 
+                                    soumission à l'obligation du visa du contrat de travail.</li>
+                                   <li>Copie du statut de la société et sa publication au J.O.R.T.</li>
+                                   <li>Justificatif d'hébergement.</li>
+                                   <li>Copie du passeport encore valide.</li>
+                                   <li>04 photos d'identité.</li>
+                                   <li>Remplir le formulaire de la demande de visa - Carte de séjour. </li>
+                                 </ul>
+                              </b-card-text>
+                          </b-card> <br>
+                      
+                    </div>
+
+                     <div >
+                        <b-card title="En cas d'étude:">
+                             <b-card-text>
+                               <ul>
+                                  <li> Attestation de scolarité ou d'inscription pour
+                                       l'année scolaire ou universitaire en cours.</li>
+                                  <li>Attestation de presence et de paiement integral pour 
+                                       l'année scolaire ou universitaire en cours. </li>
+                                  <li>Attestation d'un revenu.</li>
+                                  <li>Copie du passeport encore valide.</li>
+                                  <li>04 photos d'identité.</li>
+                                  <li>Justificatif d'hébergement.</li>
+                                  <li>Remplir le formulaire de la demande de visa - Carte de séjour.</li>
+                               </ul>
+                             </b-card-text>
+                            </b-card> <br>
+                     </div>
+                </div>
+              </section>
               <button style=" color:blue" class="btn" @click="readMore =! readMore">
                 <span v-if="readMore">Read Less</span>
                 <span v-else>Read More...</span>
@@ -74,15 +112,97 @@
           </div>
            <div style="min-height:200px;">
               <h3> Online complaint filing</h3>
-              <p>Lorem ipsum dolor sit amet,
+              <p>QUI PEUT PORTER PLAINTE?
                 <span v-if="readMore1"></span>
                 <span v-else>...</span>
               </p>
              
-              <p v-show="readMore1">Ligula ullamcorper malesuada proin
-                libero nunc consequat interdum varius. Turpis egestas pretium aenean pharetra magna ac
+              <section v-show="readMore1">
+                 
+     <section>
+        <div class="porterPlainte">
+          <b-card title="QUI PEUT PORTER PLAINTE?">
+            <b-card-text>
+              <p>Toute personne (même mineure) victime d'une infraction peut porter plainte.
+                es personnes morales (sociétés et associations) peuvent aussi porter
+                plainte pour défendre leurs intérêts ou les objectifs qu'elles poursuivent.</p>
+            </b-card-text>
+            <b-icon icon="exclamation-diamond-fill" variant="danger" font-scale="2" style="float:left;"></b-icon>
+            <p>les officiers et agents de police judiciaire sont obligés de recevoir les plaintes,
+              même si les faits ne relèvent pas de leur zone géographique de compétence.</p>
+          </b-card>
+        </div> <br>
+       
+        <div class="objectifs">
+          <b-card title="OBJECTIFS DE LA PLAINTE">
+            <b-card-text>
+              <p>La plainte permet de sanctionner pénalement (prison, amende...) l'auteur des faits.
+       
+                is elle ne suffit pas pour que la justice le condamne à réparer le préjudice subi par la victime
+                (remboursement d'un objet volé par exemple).
+       
+                ur que la justice puisse condamner l'auteur des faits à indemniser la victime, il faut qu'en plus de la
+                plainte la victime se constitue partie civile. Elle peut le faire tout au long de la procédure.</p>
+              <b-icon icon="exclamation-diamond-fill" variant="danger" font-scale="2" style="float:left;"></b-icon>
+              <p> il est possible de saisir directement le juge pénal par une citation directe. Cette procédure permet de
+                convoquer l'auteur présumé de l'infraction devant le tribunal.</p>
+            </b-card-text>
+          </b-card>
+        </div><br>
+       
+        <div class="delais">
+          <b-card title="DELAIS POUR PORTER UNE  PLAINTE">
+            <b-card-text>
+              <div>
+                <h5>Le plaignant dispose de délais pour porter plainte. Au delà de ces délais, la plainte ne peut plus aboutir. <br>
+                On parle de délais de prescription.
+                </h5>
+               
+       
+               <h4> ces délais sont les suivants :</h4>
+
+                <ul>
+                 <li> pour les contraventions (trouble anormal de voisinage ...),</li>
+                <li>pour les délits (vol, coups et blessures, escroqueries ...),</li>
+                 <li>pour les crimes (meurtre, viol ...).</li>
+                </ul>
+             <div>
+                 <h5> Les délais peuvent être réduits ou allongés pour certaines infractions.</h5>
+                 <ul>
+                    <li> le délai de prescription pour les injures est de 3 mois, </li>
+                    <li> alors que celui prévu pour les crimes commis sur
+                mineurs et les crimes jugés très graves (terrorisme, grand banditisme) est de 30 ans.</li>
+                 </ul>
+                 
+                 
+             </div>
+       
+            <p>Le delai commence en principe à partir du jour où
+                l'infraction a été commise. Mais, pour un crime sur un mineur, un nouveau délai commence à partir de la majorité
+                de la victime. Par exemple, une victime mineure d'un viol peut porter plainte jusqu'à ses 48 ans, soit 30
+                ans après sa majorité.</p>
+       
+                
+                
+                </div>
+            </b-card-text>
+          </b-card>
+        </div><br>
+       
+        <div class="gestionPlainte">
+          <b-card title="COMMENT PORTER PLAINTE?">
+            <b-card-text>
+              <p>Vous devez vous rendre dans un commissariat de police ou à la gendarmerie de votre choix.</p>
+              <p>Grace à cette plateforme, il vous est possible de porter plainte sans vous deplacer</p>
+            </b-card-text>
+            <router-link to="gestion_plaintes">
+              <b-button class="float-left" variant="danger"> Essayer notre service de plainte en ligne:</b-button>
+            </router-link>
+          </b-card>
+        </div><br>
+     </section>
              
-              </p>
+              </section>
               <button style=" color:blue" class="btn" @click="readMore1 =! readMore1">
                 <span v-if="readMore1">Read Less</span>
                 <span v-else>Read More...</span>
@@ -118,19 +238,21 @@
     data() {
       return {
         activeClass: 'menu-active',
-        textPlainte: '',
-        textCarte: " Your skin just like pearls The best thing in the world Never trade you for anybody else Singin brown skin girl Your skin just like pearls",
-        readMoreActivated: false,
-        shortText: '',
+        //textPlainte: '',
+       // textCarte: " Your skin just like pearls The best thing in the world Never trade you for anybody else Singin brown skin girl Your skin just like pearls",
+       // readMoreActivated: false,
+       // shortText: '',
         readMore: false,
-        readMore1: false
+        readMore1: false,
+        show: false,
+            show1: false,
       }
     },
     computed: {
 
     },
     methods: {
-      activateReadMore() {
+      /*activateReadMore() {
         this.readMoreActivated = true;
       },
       hide() {
@@ -138,7 +260,8 @@
       },
       change() {
         return this.shortText = this.textCarte.slice(0, 50);
-      }
+      }*/
+
     }
 
   }
@@ -146,6 +269,9 @@
 
 
 <style scoped>
+ul li{
+  list-style-type: none;
+}
   .c1 {
     width: 100%;
     height: 600px;
